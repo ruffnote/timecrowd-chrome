@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "coffee-script": "^1.9.1",
+    "gulp": "*",
+    "gulp-coffee": "*",
+    "gulp-coffeelint": "*",
+    "gulp-plumber": "*",
+    "gulp-uglify": "*",
+    "gulp-zip": "*",
+    "gulp-zip": "*",
+    "gulp-util": "*",
+    "gulp-rename": "*",
+    "gulp-json-editor": "*",
+    "del": "*"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "extName": {
+    "message": "TimeCrowd"
+  },
+  "extNameStaging": {
+    "message": "TimeCrowd (Staging)"
+  },
+  "extDescription": {
+    "message": "Time track everything"
+  },
+  "popup_settings": {
+    "message": "Settings"
+  },
+  "popup_sign_in": {
+    "message": "Sign in"
+  },
+  "popup_sign_out": {
+    "message": "Sign out"
+  },
+  "popup_start": {
+    "message": "Start"
+  },
+  "popup_stop": {
+    "message": "Stop"
+  },
+  "popup_stop_and_comment": {
+    "message": "Stop and comment"
+  },
+  "popup_overlay": {
+    "message": "Overlay"
+  },
+  "popup_feedback": {
+    "message": "Feedback"
+  },
+  "popup_version": {
+    "message": "Version"
+  },
+  "popup_recent_entries": {
+    "message": "Recent entries"
+  },
+  "popup_workable_tasks": {
+    "message": "Workable tasks"
+  },
+  "popup_loading": {
+    "message": "Loading..."
+  },
+  "popup_load_more": {
+    "message": "Load more"
+  },
+  "popup_no_team_found": {
+    "message": "No team found."
+  },
+  "popup_create_team": {
+    "message": "Create team"
+  },
+  "popup_comment": {
+    "message": "Comment"
+  },
+  "popup_invalid_grant": {
+    "message": "Please re-sign in."
+  },
+  "popup_all_teams": {
+    "message": "All teams"
+  },
+  "popup_refresh": {
+    "message": "Refresh"
+  },
+  "popup_show_info": {
+    "message": "Show info about this URL"
+  },
+  "popup_timeout": {
+    "message": "Timed out."
+  },
+  "popup_activity": {
+    "message": "Activity"
+  },
+  "popup_today": {
+    "message": "Today"
+  },
+  "overlay_left_top": {
+    "message": "Left top"
+  },
+  "overlay_right_top": {
+    "message": "Right top"
+  },
+  "overlay_left_bottom": {
+    "message": "Left bottom"
+  },
+  "overlay_right_bottom": {
+    "message": "Right bottom"
+  },
+  "overlay_none": {
+    "message": "None"
+  },
+  "content_start": {
+    "message": "Start"
+  },
+  "content_stop": {
+    "message": "Stop"
+  },
+  "elapsed": {
+    "message": "Show elapsed time"
+  },
+  "count_on_title": {
+    "message": "Count on title"
+  }
+}

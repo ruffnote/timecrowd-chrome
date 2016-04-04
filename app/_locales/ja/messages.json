@@ -1,0 +1,107 @@
+{
+  "extName": {
+    "message": "TimeCrowd"
+  },
+  "extNameStaging": {
+    "message": "TimeCrowd (Staging)"
+  },
+  "extDescription": {
+    "message": "なんでもタイムトラッキング"
+  },
+  "popup_settings": {
+    "message": "設定"
+  },
+  "popup_sign_in": {
+    "message": "ログイン"
+  },
+  "popup_sign_out": {
+    "message": "ログアウト"
+  },
+  "popup_start": {
+    "message": "スタート"
+  },
+  "popup_stop": {
+    "message": "ストップ"
+  },
+  "popup_stop_and_comment": {
+    "message": "ストップ＆コメント"
+  },
+  "popup_overlay": {
+    "message": "オーバーレイ"
+  },
+  "popup_feedback": {
+    "message": "フィードバック"
+  },
+  "popup_version": {
+    "message": "バージョン"
+  },
+  "popup_recent_entries": {
+    "message": "最近の作業ログ"
+  },
+  "popup_workable_tasks": {
+    "message": "タスク"
+  },
+  "popup_loading": {
+    "message": "読み込み中..."
+  },
+  "popup_load_more": {
+    "message": "もっと見る"
+  },
+  "popup_no_team_found": {
+    "message": "チームがありません。"
+  },
+  "popup_create_team": {
+    "message": "チームを作成"
+  },
+  "popup_comment": {
+    "message": "コメント"
+  },
+  "popup_all_teams": {
+    "message": "全てのチーム"
+  },
+  "popup_invalid_grant": {
+    "message": "認証に失敗しました。お手数ですがログインし直してください。"
+  },
+  "popup_refresh": {
+    "message": "更新"
+  },
+  "popup_show_info": {
+    "message": "このURLの情報を見る"
+  },
+  "popup_timeout": {
+    "message": "タイムアウトしました。お手数ですがもう一度操作してください。"
+  },
+  "popup_activity": {
+    "message": "活動状況"
+  },
+  "popup_today": {
+    "message": "今日"
+  },
+  "overlay_left_top": {
+    "message": "左上"
+  },
+  "overlay_right_top": {
+    "message": "右上"
+  },
+  "overlay_left_bottom": {
+    "message": "左下"
+  },
+  "overlay_right_bottom": {
+    "message": "右下"
+  },
+  "overlay_none": {
+    "message": "表示しない"
+  },
+  "content_start": {
+    "message": "スタート"
+  },
+  "content_stop": {
+    "message": "ストップ"
+  },
+  "elapsed": {
+    "message": "経過時間を表示"
+  },
+  "count_on_title": {
+    "message": "タイトルでカウント"
+  }
+}

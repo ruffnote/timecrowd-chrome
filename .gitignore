@@ -1,0 +1,11 @@
+.DS_Store
+*~
+.*.sw*
+node_modules
+npm-debug.log 
+app/js/*
+app/manifest.json
+app/img/*
+!app/img/.keep
+build/*
+keys.coffee
