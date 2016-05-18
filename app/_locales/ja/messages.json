@@ -29,9 +29,6 @@
   "popup_overlay": {
     "message": "オーバーレイ"
   },
-  "popup_feedback": {
-    "message": "フィードバック"
-  },
   "popup_version": {
     "message": "バージョン"
   },
