@@ -31,9 +31,14 @@ $ gulp lint
 ./pack.sh
 ```
 
+## Install
+
+1. chrome://extensions/
+2. Load unpacked extention
+3. /path/to/app
+
 ## Jasmine
 
 ```
 chrome-extension://jahjoedcfifbemdippjhpcljnkcfbbbk/jasmine/SpecRunner.html
 ```
-
