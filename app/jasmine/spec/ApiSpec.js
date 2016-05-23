@@ -63,6 +63,7 @@ describe('Api', function() {
 
     it('requests api', function(done) {
       expect(value).not.toBeNull();
+      expect(value.is_anonymous).toBe(false);
       done();
     });
   });
@@ -75,7 +76,7 @@ describe('Api', function() {
 
       expect(TimeCrowd.api.isExpired({ expiresAt: past })).toBe(true);
       expect(TimeCrowd.api.isExpired({ expiresAt: future })).toBe(false);
-    }); 
+    });
   });
 
   describe('#saveAuthToken', function() {
