@@ -2,12 +2,12 @@
 
 ## OAuth
 
-https://timecrowd.net/oauth/applications/new 
+https://timecrowd.net/oauth/applications/new
 
 Redirect URI: `https://jahjoedcfifbemdippjhpcljnkcfbbbk.chromiumapp.org/provider_cb`
 
 ```
-# src/coffee/keys.coffee 
+# src/coffee/keys.coffee
 TimeCrowd.keys =
   baseUrl: 'https://timecrowd.net/'
   clientId: 'ID'
