@@ -8,10 +8,10 @@ Redirect URI: `https://jahjoedcfifbemdippjhpcljnkcfbbbk.chromiumapp.org/provider
 
 ```
 # src/coffee/keys.coffee 
-TimeCrowd.keys = {
+TimeCrowd.keys =
+  baseUrl: 'https://timecrowd.net/'
   clientId: 'ID'
   clientSecret: 'SECRET'
-}
 ```
 
 ## Build

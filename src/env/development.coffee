@@ -2,8 +2,7 @@
 
 class Env
   constructor: ->
-    @baseUrl = 'http://localhost:3000/'
-    #@baseUrl = 'https://localhost:3000/'
+    @baseUrl = TimeCrowd.keys.baseUrl
     @version = '1'
     @interval = 5000
     @overlayDefault = 'none'
