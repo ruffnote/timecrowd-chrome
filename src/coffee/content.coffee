@@ -195,7 +195,7 @@ try
           resolve()
 
     _fetchUser: =>
-      TimeCrowd.api.request(@auth, '/user/info', 'GET')
+      TimeCrowd.api.request(@auth, '/user', 'GET')
         .then (json) =>
           @user = json
           @startLabelAll()
