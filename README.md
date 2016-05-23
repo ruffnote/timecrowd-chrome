@@ -23,12 +23,6 @@ $ npm install
 
 # Watch
 $ gulp [watch]
-
-# CoffeeLint
-$ gulp lint
-
-# Package
-./pack.sh
 ```
 
 ## Install
@@ -36,6 +30,11 @@ $ gulp lint
 1. chrome://extensions/
 2. Load unpacked extention
 3. /path/to/app
+
+## Package
+```
+./pack.sh
+```
 
 ## Jasmine
 
