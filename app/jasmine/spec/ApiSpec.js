@@ -3,7 +3,7 @@ describe('Api', function() {
 
   describe('#constructor', function() {
     it('initializes instance variables', function() {
-      expect(api.baseUrl).toEqual('http://localhost:3000');
+      expect(api.baseUrl).toEqual(TimeCrowd.keys.baseUrl);
       expect(api.version).toEqual('/api/v1');
     });
   })
