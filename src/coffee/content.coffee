@@ -172,17 +172,15 @@ try
       TimeCrowd.duration.update(el)
 
     _fetch: ->
-      chrome.storage.local.get 'overlay', (items) =>
-        return if items.overlay == 'none'
-        @_loadAuth()
-          .then(@_fetchUser)
-          .then(@_loadAuth)
-          .then(@_fetchWorkingUsers)
-          .then =>
-            @_render()
-          .catch (err) =>
-            console.error(err) unless TimeCrowd?.env?.production
-            @_removeEl()
+      @_loadAuth()
+        .then(@_fetchUser)
+        .then(@_loadAuth)
+        .then(@_fetchWorkingUsers)
+        .then =>
+          @_render()
+        .catch (err) =>
+          console.error(err) unless TimeCrowd?.env?.production
+          @_removeEl()
 
     _loadAuth: =>
       new Promise (resolve, reject) =>
