@@ -244,14 +244,10 @@ try
       chrome.storage.local.get 'elapsed', (items) =>
         @elapsed = items.elapsed ? TimeCrowd.env.elapsedDefault
         if @elapsed
-          @hideElapsedWithMouseOut = true
           first_user = @users[0]
           working = @user.id == first_user?.id
-          if working
-            @_renderElapsed(first_user)
-            @hideElapsedWithMouseOut = false
-          else if @users.length
-            @_renderElapsed(first_user)
+          @hideElapsedWithMouseOut = !working
+          @_renderElapsed(first_user) if first_user
           @_showElapsed()
           @_hideElapsed()
         else
