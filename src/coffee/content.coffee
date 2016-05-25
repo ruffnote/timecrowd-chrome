@@ -245,11 +245,13 @@ try
         @elapsed = items.elapsed ? TimeCrowd.env.elapsedDefault
         if @elapsed
           @hideElapsedWithMouseOut = true
-          if @user.task
-            @_renderElapsed(@user)
+          first_user = @users[0]
+          working = @user.id == first_user?.id
+          if working
+            @_renderElapsed(first_user)
             @hideElapsedWithMouseOut = false
           else if @users.length
-            @_renderElapsed(@users[0])
+            @_renderElapsed(first_user)
           @_showElapsed()
           @_hideElapsed()
         else
