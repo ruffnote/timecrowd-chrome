@@ -2,16 +2,16 @@
 
 ## OAuth
 
-https://timecrowd.net/oauth/applications/new 
+https://timecrowd.net/oauth/applications/new
 
 Redirect URI: `https://jahjoedcfifbemdippjhpcljnkcfbbbk.chromiumapp.org/provider_cb`
 
 ```
-# src/coffee/keys.coffee 
-TimeCrowd.keys = {
+# src/coffee/keys.coffee
+TimeCrowd.keys =
+  baseUrl: 'https://timecrowd.net/'
   clientId: 'ID'
   clientSecret: 'SECRET'
-}
 ```
 
 ## Build
@@ -23,12 +23,6 @@ $ npm install
 
 # Watch
 $ gulp [watch]
-
-# CoffeeLint
-$ gulp lint
-
-# Package
-./pack.sh
 ```
 
 ## Install
@@ -36,6 +30,11 @@ $ gulp lint
 1. chrome://extensions/
 2. Load unpacked extention
 3. /path/to/app
+
+## Package
+```
+./pack.sh
+```
 
 ## Jasmine
 
