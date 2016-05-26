@@ -3,7 +3,7 @@ describe('Api', function() {
 
   describe('#constructor', function() {
     it('initializes instance variables', function() {
-      expect(api.baseUrl).toEqual('http://localhost:3000');
+      expect(api.baseUrl).toEqual(TimeCrowd.keys.baseUrl);
       expect(api.version).toEqual('/api/v1');
     });
   })
@@ -63,6 +63,7 @@ describe('Api', function() {
 
     it('requests api', function(done) {
       expect(value).not.toBeNull();
+      expect(value.is_anonymous).toBe(false);
       done();
     });
   });
@@ -75,7 +76,7 @@ describe('Api', function() {
 
       expect(TimeCrowd.api.isExpired({ expiresAt: past })).toBe(true);
       expect(TimeCrowd.api.isExpired({ expiresAt: future })).toBe(false);
-    }); 
+    });
   });
 
   describe('#saveAuthToken', function() {
