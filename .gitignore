@@ -2,8 +2,9 @@
 *~
 .*.sw*
 node_modules
-npm-debug.log 
+npm-debug.log
 app/js/*
+app/css/*
 app/manifest.json
 app/img/*
 !app/img/.keep
