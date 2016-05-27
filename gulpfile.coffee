@@ -2,9 +2,10 @@ gulp = require 'gulp'
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
 sass = require 'gulp-sass'
-plumber = require 'gulp-plumber'
 cssnext = require 'gulp-cssnext'
 cssnano = require 'gulp-cssnano'
+scsslint = require 'gulp-scss-lint'
+plumber = require 'gulp-plumber'
 uglify = require 'gulp-uglify'
 zip = require 'gulp-zip'
 del = require 'del'
@@ -34,6 +35,11 @@ gulp.task 'coffee', ['env'], ->
     .pipe if isDeploy then uglify(preserveComments: 'some') else gutil.noop()
     .pipe gulp.dest('./app/js')
 
+gulp.task 'coffeelint', ->
+  gulp.src './src/coffee/*.coffee'
+    .pipe coffeelint()
+    .pipe coffeelint.reporter()
+
 gulp.task 'scss', ['env'], ->
   gulp.src './src/scss/*.scss'
     .pipe plumber()
@@ -42,12 +48,19 @@ gulp.task 'scss', ['env'], ->
     .pipe cssnano()
     .pipe gulp.dest('./app/css')
 
-gulp.task 'lint', ->
-  gulp.src './src/coffee/*.coffee'
-    .pipe coffeelint()
-    .pipe coffeelint.reporter()
+gulp.task 'scsslint', ['env'], ->
+  gulp.src './src/scss/*.scss'
+    .pipe plumber(
+      errorHandler: ->
+        @emit 'end'
+    )
+    .pipe scsslint(
+      'reporterOutputFormat': 'Checkstyle'
+      'endless': true
+      'config': 'scss-lint.yml')
+    .pipe scsslint.failReporter()
 
-gulp.task 'watch', ['lint', 'coffee', 'scss', 'manifest', 'img'], ->
+gulp.task 'watch', ['coffeelint', 'coffee', 'scsslint', 'scss', 'manifest', 'img'], ->
   gulp.watch 'src/coffee/*.coffee', ['coffee']
   gulp.watch 'src/scss/*.scss', ['scss']
 

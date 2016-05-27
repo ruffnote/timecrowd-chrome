@@ -6,6 +6,7 @@
     "gulp-sass": "*",
     "gulp-cssnext": "*",
     "gulp-cssnano": "*",
+    "gulp-scss-lint": "*",
     "gulp-coffeelint": "*",
     "gulp-plumber": "*",
     "gulp-uglify": "*",
