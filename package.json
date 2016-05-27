@@ -4,6 +4,8 @@
     "gulp": "*",
     "gulp-coffee": "*",
     "gulp-sass": "*",
+    "gulp-cssnext": "*",
+    "gulp-cssnano": "*",
     "gulp-coffeelint": "*",
     "gulp-plumber": "*",
     "gulp-uglify": "*",

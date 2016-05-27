@@ -3,6 +3,8 @@ coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
 sass = require 'gulp-sass'
 plumber = require 'gulp-plumber'
+cssnext = require 'gulp-cssnext'
+cssnano = require 'gulp-cssnano'
 uglify = require 'gulp-uglify'
 zip = require 'gulp-zip'
 del = require 'del'
@@ -36,6 +38,8 @@ gulp.task 'scss', ['env'], ->
   gulp.src './src/scss/*.scss'
     .pipe plumber()
     .pipe sass()
+    .pipe cssnext()
+    .pipe cssnano()
     .pipe gulp.dest('./app/css')
 
 gulp.task 'lint', ->
