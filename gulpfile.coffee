@@ -1,8 +1,7 @@
 gulp = require 'gulp'
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
-postcss = require 'gulp-postcss'
-scss = require 'postcss-scss'
+sass = require 'gulp-sass'
 plumber = require 'gulp-plumber'
 uglify = require 'gulp-uglify'
 zip = require 'gulp-zip'
@@ -34,9 +33,9 @@ gulp.task 'coffee', ['env'], ->
     .pipe gulp.dest('./app/js')
 
 gulp.task 'scss', ['env'], ->
-  processors = []
   gulp.src './src/scss/*.scss'
-    .pipe postcss(processors, {syntax: scss})
+    .pipe plumber()
+    .pipe sass()
     .pipe gulp.dest('./app/css')
 
 gulp.task 'lint', ->
