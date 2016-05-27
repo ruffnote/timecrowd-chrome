@@ -3,6 +3,8 @@
     "coffee-script": "^1.9.1",
     "gulp": "*",
     "gulp-coffee": "*",
+    "gulp-postcss": "*",
+    "postcss-scss": "*",
     "gulp-coffeelint": "*",
     "gulp-plumber": "*",
     "gulp-uglify": "*",

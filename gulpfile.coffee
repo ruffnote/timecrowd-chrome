@@ -1,6 +1,8 @@
 gulp = require 'gulp'
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
+postcss = require 'gulp-postcss'
+scss = require 'postcss-scss'
 plumber = require 'gulp-plumber'
 uglify = require 'gulp-uglify'
 zip = require 'gulp-zip'
@@ -31,13 +33,20 @@ gulp.task 'coffee', ['env'], ->
     .pipe if isDeploy then uglify(preserveComments: 'some') else gutil.noop()
     .pipe gulp.dest('./app/js')
 
+gulp.task 'scss', ['env'], ->
+  processors = []
+  gulp.src './src/scss/*.scss'
+    .pipe postcss(processors, {syntax: scss})
+    .pipe gulp.dest('./app/css')
+
 gulp.task 'lint', ->
   gulp.src './src/coffee/*.coffee'
     .pipe coffeelint()
     .pipe coffeelint.reporter()
 
-gulp.task 'watch', ['lint', 'coffee', 'manifest', 'img'], ->
+gulp.task 'watch', ['lint', 'coffee', 'scss', 'manifest', 'img'], ->
   gulp.watch 'src/coffee/*.coffee', ['coffee']
+  gulp.watch 'src/scss/*.scss', ['scss']
 
 gulp.task 'manifest', ->
   bumpVersion() if isProduction
@@ -70,5 +79,3 @@ bumpVersion = ->
   versions = readVersion().split('.')
   versions[2] = parseInt(versions[2]) + 1
   fs.writeFileSync('./src/version', versions.join('.'))
-
-
