@@ -13,7 +13,7 @@ annotator.observe 'ts-message', (element) ->
   content = element.querySelector('.message_body')
   return unless content
 
-  starholder = element.querySelector('.message_star_holder')
+  starholder = element.querySelector('.message_content > .message_star_holder')
   return unless starholder
 
   # rid = element.dataset.rid
@@ -71,6 +71,7 @@ annotator.observe 'ts-message', (element) ->
     # br = document.createElement('br')
     #timestamp.appendChild(br)
     #timestamp.appendChild(icon)
+    console.log starholder.parentNode
     starholder.parentNode.insertBefore(count, starholder)
-    # count.classList.add('timestamp')
+    count.classList.add('timestamp')
 
