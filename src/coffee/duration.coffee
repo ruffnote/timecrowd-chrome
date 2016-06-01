@@ -19,7 +19,7 @@ class Duration
 
     if element.getAttribute('itemprop') == 'count'
       html = @_format(duration)
-      if element.dataset.withIcon == 'false'
+      if element.dataset.withIcon == 'true'
         html = "#{TimeCrowd.annotator.stopIcon(element)} #{html}"
       element.innerHTML = html
     else
