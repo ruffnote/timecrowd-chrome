@@ -13,8 +13,8 @@ annotator.observe 'ts-message', (element) ->
   content = element.querySelector('.message_body')
   return unless content
 
-  # timestamp = element.querySelector('._timeStamp')
-  # return unless timestamp
+  starholder = element.querySelector('.message_star_holder')
+  return unless starholder
 
   # rid = element.dataset.rid
 
@@ -65,12 +65,12 @@ annotator.observe 'ts-message', (element) ->
     nav.insertBefore(a, action)
     label.innerHTML = annotator.startLabel(label)
 
-  # unless annotator.hasCount(element)
-  #   #icon = annotator.stopIcon(14)
-  #   count = annotator.countNode()
-  #   br = document.createElement('br')
-  #   timestamp.appendChild(br)
-  #   #timestamp.appendChild(icon)
-  #   timestamp.appendChild(count)
-  #   timestamp.style.textAlign = 'right'
+  unless annotator.hasCount(element)
+    #icon = annotator.stopIcon(14)
+    count = annotator.countNode()
+    # br = document.createElement('br')
+    #timestamp.appendChild(br)
+    #timestamp.appendChild(icon)
+    starholder.parentNode.insertBefore(count, starholder)
+    # count.classList.add('timestamp')
 
