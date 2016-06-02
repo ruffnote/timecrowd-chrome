@@ -41,7 +41,7 @@ annotator.observe 'ts-message', (element) ->
     annotator.setURL(url)
 
   unless annotator.hasParentName(element)
-    text = 'test'# document.querySelector('._roomTitleText').textContent
+    text = document.querySelector('#channel_title').textContent
     name = annotator.hiddenDiv text
     element.appendChild(name)
     annotator.setParentName(name)
@@ -49,7 +49,7 @@ annotator.observe 'ts-message', (element) ->
   unless annotator.hasParentURL(element)
     #mid = element.dataset.mid
 
-    url = annotator.hiddenDiv "https://www.chatwork.com/"#!rid#{rid}"
+    url = annotator.hiddenDiv window.location.href
     element.appendChild(url)
     annotator.setParentURL(url)
 
