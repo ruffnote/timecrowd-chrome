@@ -55,15 +55,20 @@ annotator.observe 'ts-message', (element) ->
 
   unless annotator.hasLabel(element)
     a = document.createElement('a')
-    a.className = 'linkStatus'
+    a.className = 'linkStatus ts_icon ts_tip ts_tip_top ts_tip_float ts_tip_delay_60 ts_tip_hidden'
 
     label = document.createElement('span')
     # label.className = 'showAreatext'
     annotator.setLabel(label)
     a.appendChild(label)
 
+    tooltip = document.createElement('span')
+    tooltip.className = 'ts_tip_tip'
+    tooltip.textContent = 'Start'
+    a.appendChild(tooltip)
+
     nav.insertBefore(a, action)
-    label.innerHTML = annotator.startLabel(label)
+    label.innerHTML = annotator.startIcon(label)
 
   unless annotator.hasCount(element)
     #icon = annotator.stopIcon(14)

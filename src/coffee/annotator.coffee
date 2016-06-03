@@ -23,6 +23,9 @@ class Annotator
   stopLabel: (element) ->
     @_icon(element, 'stop')
 
+  startIcon: (element) ->
+    @_icon(element, 'start', true)
+
   stopIcon: (element) ->
     @_icon(element, 'stop', true)
 
