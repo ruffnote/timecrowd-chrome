@@ -318,7 +318,7 @@ try
   document.addEventListener('page:fetch', initForTurbolinks)
 
   document.addEventListener 'click', (e) ->
-    target = e.target
+    target = e.target.getAttribute('itemprop') || jQuery(e.target).parents("span[itemprop='label']")[0]
     return unless target.getAttribute('itemprop') == 'label'
 
     id = target.dataset.timeCrowdTimeEntryId
