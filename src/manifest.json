@@ -31,7 +31,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["js/namespace.js", "js/keys.js", "js/env.js", "js/api.js", "js/duration.js", "js/annotator.js", "js/content.js"],
+      "js": ["vendor/jquery.min.js", "js/namespace.js", "js/keys.js", "js/env.js", "js/api.js", "js/duration.js", "js/annotator.js", "js/content.js"],
       "css": ["css/content.css"]
     },
     {
