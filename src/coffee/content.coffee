@@ -83,7 +83,7 @@ try
 
     _startLabel: (element, json, duration) ->
       if !element.dataset.timeCrowdTimeEntryId
-        element.innerHTML = TimeCrowd.annotator.stopLabel(element)
+        element.innerHTML = TimeCrowd.annotator.stop(element)
         element.dataset.timeCrowdTimeEntryId = json.id
         duration.dataset.duration = json.duration
 
@@ -97,7 +97,7 @@ try
 
     _stopLabel: (element, duration) ->
       if element.dataset.timeCrowdTimeEntryId
-        element.innerHTML = TimeCrowd.annotator.startLabel(element)
+        element.innerHTML = TimeCrowd.annotator.start(element)
         delete element.dataset.timeCrowdTimeEntryId
         delete duration.dataset.duration
         delete duration.dataset.startedAt
