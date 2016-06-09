@@ -66,7 +66,7 @@ annotator.observe '._message', (element) ->
     li.appendChild(label)
 
     nav.insertBefore(li, action.nextSibling)
-    label.innerHTML = annotator.startLabel(label)
+    label.innerHTML = annotator.start(label)
 
   unless annotator.hasCount(element)
     #icon = annotator.stopIcon(14)

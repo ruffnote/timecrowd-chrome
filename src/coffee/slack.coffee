@@ -1,6 +1,7 @@
 'use strict'
 
 annotator = TimeCrowd.annotator
+annotator.iconOnly = true
 
 annotator.observe 'ts-message', (element) ->
   nav = element.querySelector '.action_hover_container'
@@ -68,7 +69,7 @@ annotator.observe 'ts-message', (element) ->
     a.appendChild(tooltip)
 
     nav.insertBefore(a, action)
-    label.innerHTML = annotator.startIcon(label)
+    label.innerHTML = annotator.start(label)
 
   unless annotator.hasCount(element)
     #icon = annotator.stopIcon(14)

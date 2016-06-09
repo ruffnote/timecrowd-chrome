@@ -9,7 +9,7 @@ itemtype = 'http://schema.org/Action/StartAction'
 
 class Annotator
   constructor: ->
-    @_iconOnly = false
+    @iconOnly = false
 
   observe: (selector, modifier) ->
     observer = new MutationObserver (mutations) =>
@@ -21,24 +21,24 @@ class Annotator
     @_annotate(selector, modifier)
 
   startLabel: (element) ->
-    @_iconOnly = false
+    @iconOnly = false
     @_icon(element, 'start')
 
   stopLabel: (element) ->
-    @_icon(element, 'stop', @_iconOnly)
+    @_icon(element, 'stop', @iconOnly)
 
   startIcon: (element) ->
-    @_iconOnly = true
-    @_icon(element, 'start', @_iconOnly)
+    @iconOnly = true
+    @_icon(element, 'start', @iconOnly)
 
   stopIcon: (element) ->
-    @_icon(element, 'stop', @_iconOnly)
+    @_icon(element, 'stop', @iconOnly)
 
   start: (element) ->
-    @_icon(element, 'start', @_iconOnly)
+    @_icon(element, 'start', @iconOnly)
 
   stop: (element) ->
-    @_icon(element, 'stop', @_iconOnly)
+    @_icon(element, 'stop', @iconOnly)
 
   _icon: (element, type, iconOnly = false) ->
     style = getComputedStyle(element, null)
