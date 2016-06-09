@@ -20,17 +20,6 @@ class Annotator
     observer.observe(document, options)
     @_annotate(selector, modifier)
 
-  startLabel: (element) ->
-    @iconOnly = false
-    @_icon(element, 'start')
-
-  stopLabel: (element) ->
-    @_icon(element, 'stop', @iconOnly)
-
-  startIcon: (element) ->
-    @iconOnly = true
-    @_icon(element, 'start', @iconOnly)
-
   stopIcon: (element) ->
     @_icon(element, 'stop', @iconOnly)
 
