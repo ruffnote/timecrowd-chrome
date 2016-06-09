@@ -60,6 +60,7 @@ annotator.observe '._message', (element) ->
     li = document.createElement('li')
     li.className = 'linkStatus'
 
+    # FIXME: annotatorの中に閉じたい
     label = document.createElement('span')
     label.className = 'showAreatext'
     annotator.setLabel(label)

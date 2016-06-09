@@ -20,6 +20,7 @@ class Annotator
     observer.observe(document, options)
     @_annotate(selector, modifier)
 
+  # FIXME: 消すか名前を変えたい(countIconなど？)
   stopIcon: (element) ->
     @_icon(element, 'stop', @iconOnly)
 
