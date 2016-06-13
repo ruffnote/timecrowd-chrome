@@ -20,7 +20,7 @@ class Annotator
     observer.observe(document, options)
     @_annotate(selector, modifier)
 
-  # FIXME: 消すか名前を変えたい(countIconなど？)
+  # FIXME: 名前を変えたい(logoIcon とか)
   stopIcon: (element) ->
     @_icon(element, 'stop', @iconOnly)
 
@@ -122,6 +122,7 @@ class Annotator
   _get: (element, value) ->
     element.querySelector("[itemprop=\"#{value}\"]").textContent
 
+  # FIXME: アイコンフォントにしたい
   _startIcon: (size, color = '#999') ->
     d = 'M16,1A15,15,0,1,1,1,16,15,15,0,0,1,16,' +
       '1m0-1A16,16,0,1,0,32,16,16,16,0,0,0,16,0h0Z'
