@@ -132,35 +132,43 @@
           <div class="tab-content">
             <div class="tab-pane active" id="recent_entries">
               <div v-show="recentEntries.length">
-                <ul class="list-unstyled">
-                  <li v-repeat="recentEntry : recentEntries" v-show="$index < 5 || moreEntries" class="li-hover">
-                    <ul class="list-inline pull-right">
-                      <li>
-                        <a href="#" v-on="click: startTask(recentEntry.task)" v-if="!userInfo.task || recentEntry.task.id != userInfo.task.id" class="link_url">
-                          <span class="glyphicon glyphicon-play"></span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" v-on="click: openUrl(recentEntry.html_url)" class="link_url"><span class="glyphicon glyphicon-pencil"></span></a>
-                      </li>
-                    </ul>
-                    <a href="#" v-on="click: openUrl(recentEntry.task.html_url)" title="{{ recentEntry.task.label }}{{ recentEntry.task.url ? '\n' + recentEntry.task.url : '' }}">
-                      {{ recentEntry.task.label | truncate 30 }}
+                <div v-repeat="recentEntry : recentEntries" v-show="$index < 5 || moreEntries" class="media">
+                  {{ recentEntry.started_at }}
+                  <div v-if="recentEntry | compareDate recentEntries[$index -1]">
+                    hoge
+                  </div>
+                  <div class="media-left">
+                    <p>
+                      {{ recentEntry.started_at | strfdatetime }} - {{ recentEntry.stopped_at | strftime }}
+                    </p>
+                    <p>
+                      {{ recentEntry.formatted_duration }}
+                    </p>
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading" style="font-size:12px;">
+                      {{ recentEntry.task.title | 30 }}
+                    </h4>
+                    <a href="#" v-on="click: startTask(recentEntry.task)" v-if="!userInfo.task || recentEntry.task.id != userInfo.task.id" class="link_url">
+                      <span class="glyphicon glyphicon-play"></span>
+                      スタート
                     </a>
+                    <span class="separator" v-if="!userInfo.task || recentEntry.task.id != userInfo.task.id">|</span>
+                    <a href="#" v-on="click: openUrl(recentEntry.html_url)" class="link_url">
+                      <span class="glyphicon glyphicon-pencil"></span>
+                      編集
+                    </a>
+                    <span class="separator" v-if="!userInfo.task || recentEntry.task.id != userInfo.task.id">|</span>
                     <a v-if="recentEntry.task.url" href="#" v-on="click: openUrl(recentEntry.task.safe_url)" title="{{ recentEntry.task.url }}">
                       <span class="glyphicon glyphicon-globe"></span>
+                      外部リンク
                     </a>
-                    <span class="text-muted">
-                      {{ recentEntry.started_at | strftime }}
-                      -
-                      {{ recentEntry.stopped_at | strftime }}
-                      ({{ recentEntry.formatted_duration }})
-                    </span>
-                  </li>
-                  <li v-show="recentEntries.length > 5 && !moreEntries">
-                    <a href="#" v-on="click: loadMoreEntries()" class="btn btn-default btn-sm btn-block">{{ 'popup_load_more' | localize }}</a>
-                  </li>
-                </ul>
+                  </div>
+                </div>
+
+                <div v-show="recentEntries.length > 5 && !moreEntries">
+                  <a href="#" v-on="click: loadMoreEntries()" class="btn btn-default btn-sm btn-block">{{ 'popup_load_more' | localize }}</a>
+                </div>
               </div>
             </div>
             <div class="tab-pane" id="workable_tasks">

@@ -5,7 +5,7 @@ body {
 }
 
 body.dev {
-  background: #f0f0f0;
+  /* background: #f0f0f0; */
 }
 
 a,
@@ -44,7 +44,6 @@ input {
 }
 
 .link_url {
-  color: #777;
   text-decoration: none;
 }
 
@@ -87,5 +86,47 @@ input {
 
 .list-inline .active a {
   color: inherit;
+  font-weight: bold;
+}
+
+.media {
+  padding: 5px 0;
+  margin: 0;
+}
+
+.media {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.media:nth-child(n+2) {
+  border-top: 1px solid #ddd;
+}
+
+.media .media-body {
+  padding-left: 10px;
+}
+
+.media .media-left {
+  border-right: 3px solid #ddd;
+  width: 90px;
+}
+
+.media .media-left p {
+  margin: 0 0 5px;
+}
+
+.media .media-body {
+  width: inherit;
+}
+
+.media .media-body h4 {
+  line-height: inherit;
+  font-weight: bold;
+}
+
+.media .media-body .separator {
+  margin: 0 5px;
+  color: #ddd;
   font-weight: bold;
 }
