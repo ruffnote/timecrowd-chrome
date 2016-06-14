@@ -1,6 +1,10 @@
 gulp = require 'gulp'
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
+sass = require 'gulp-sass'
+cssnext = require 'gulp-cssnext'
+cssnano = require 'gulp-cssnano'
+scsslint = require 'gulp-scss-lint'
 plumber = require 'gulp-plumber'
 uglify = require 'gulp-uglify'
 zip = require 'gulp-zip'
@@ -31,13 +35,34 @@ gulp.task 'coffee', ['env'], ->
     .pipe if isDeploy then uglify(preserveComments: 'some') else gutil.noop()
     .pipe gulp.dest('./app/js')
 
-gulp.task 'lint', ->
+gulp.task 'coffeelint', ->
   gulp.src './src/coffee/*.coffee'
     .pipe coffeelint()
     .pipe coffeelint.reporter()
 
-gulp.task 'watch', ['lint', 'coffee', 'manifest', 'img'], ->
+gulp.task 'scss', ['env'], ->
+  gulp.src './src/scss/*.scss'
+    .pipe plumber()
+    .pipe sass()
+    .pipe cssnext()
+    .pipe cssnano()
+    .pipe gulp.dest('./app/css')
+
+gulp.task 'scsslint', ['env'], ->
+  gulp.src './src/scss/*.scss'
+    .pipe plumber(
+      errorHandler: ->
+        @emit 'end'
+    )
+    .pipe scsslint(
+      'reporterOutputFormat': 'Checkstyle'
+      'endless': true
+      'config': 'scss-lint.yml')
+    .pipe scsslint.failReporter()
+
+gulp.task 'watch', ['coffeelint', 'coffee', 'scsslint', 'scss', 'manifest', 'img'], ->
   gulp.watch 'src/coffee/*.coffee', ['coffee']
+  gulp.watch 'src/scss/*.scss', ['scss']
 
 gulp.task 'manifest', ->
   bumpVersion() if isProduction
@@ -70,5 +95,3 @@ bumpVersion = ->
   versions = readVersion().split('.')
   versions[2] = parseInt(versions[2]) + 1
   fs.writeFileSync('./src/version', versions.join('.'))
-
-
