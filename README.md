@@ -18,6 +18,7 @@ TimeCrowd.keys =
 
 ```
 # Install
+$ bundle
 $ npm install --global gulp
 $ npm install
 
