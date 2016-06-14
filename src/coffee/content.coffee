@@ -25,7 +25,7 @@ try
       @auth = null
       @loading = false
 
-    start: (title, url, parentTitle, parentURL, element, duration) ->
+    start: (title, url, parentTitle, parentURL) ->
       return if @loading
       @loading = true
       @_loadAuth()
@@ -44,8 +44,8 @@ try
               ['parent[url]', parentURL],
             ])
           TimeCrowd.api.request(@auth, '/time_entries', 'POST', params)
+            .then (@_fetchWorkingUsers)
             .then (json) =>
-              @_startLabel(element, json, duration)
               @loading = false
               chrome.runtime.sendMessage(action: 'updateIcon')
             .catch (err) =>
@@ -59,8 +59,8 @@ try
         .then =>
           params = "_method=PUT"
           TimeCrowd.api.request(@auth, '/time_entries/' + id, 'POST', params)
+            .then (@_fetchWorkingUsers)
             .then (json) =>
-              @_stopLabel(element, duration)
               @loading = false
               chrome.runtime.sendMessage(action: 'updateIcon')
             .catch (err) =>
@@ -74,9 +74,12 @@ try
         item = annotator.getItem(element)
         return unless item
         url = annotator.getURL(item)
-        if url == @user.task?.url
-          duration = item.querySelector('.js_timecrowd_duration')
-          @_startLabel(element, @user.time_entry, duration)
+        duration = item.querySelector('.js_timecrowd_duration')
+        if @_working()
+          if url == @_first_user()?.task?.url
+            @_startLabel(element, @_first_user()?.time_entry, duration)
+        else
+          @_stopLabel(element, duration)
 
     _startLabel: (element, json, duration) ->
       if !element.dataset.timeCrowdTimeEntryId
@@ -198,12 +201,12 @@ try
       TimeCrowd.api.request(@auth, '/user', 'GET')
         .then (json) =>
           @user = json
-          @startLabelAll()
 
     _fetchWorkingUsers: =>
       TimeCrowd.api.request(@auth, '/user/working_users', 'GET')
         .then (json) =>
           @users = json
+          @startLabelAll()
 
     _refresh: ->
       clearInterval(@intervalId) if @intervalId
@@ -234,6 +237,12 @@ try
           ignored = true
       ignored
 
+    _first_user: ->
+      @users[0]
+
+    _working: ->
+      @user.id == @_first_user()?.id
+
     _render: ->
       @_insert()
       @_configure()
@@ -244,10 +253,8 @@ try
       chrome.storage.local.get 'elapsed', (items) =>
         @elapsed = items.elapsed ? TimeCrowd.env.elapsedDefault
         if @elapsed
-          first_user = @users[0]
-          working = @user.id == first_user?.id
-          @hideElapsedWithMouseOut = !working
-          @_renderElapsed(first_user) if first_user
+          @hideElapsedWithMouseOut = !@_working()
+          @_renderElapsed(@_first_user()) if @_first_user()
           @_showElapsed()
           @_hideElapsed()
         else
@@ -259,7 +266,7 @@ try
       else
         @elUsers.innerHTML = ''
 
-      if !@user.task && !@users.length
+      if !@_working() && !@users.length
         @_removeEl()
 
     _render_user: (user) ->
@@ -318,21 +325,15 @@ try
     annotator = TimeCrowd.annotator
     item = annotator.getItem(target)
     return unless item
-    duration = item.querySelector('.js_timecrowd_duration')
 
     if id
-      TimeCrowd.content.stop(id, target, duration)
+      TimeCrowd.content.stop(id)
     else
-      TimeCrowd.content.stopLabelAll()
-
       name = annotator.getName(item)
       url = annotator.getURL(item)
       parentName = annotator.getParentName(item)
       parentURL = annotator.getParentURL(item)
-
-      TimeCrowd.content.start(
-        name, url, parentName, parentURL, target, duration
-      )
+      TimeCrowd.content.start(name, url, parentName, parentURL)
 
   chrome.runtime.onMessage.addListener (message, sender, sendResponse) ->
     if message.action == 'title'
