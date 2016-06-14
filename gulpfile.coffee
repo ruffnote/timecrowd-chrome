@@ -23,7 +23,7 @@ envName = 'development'
 envName = 'production' if isProduction
 envName = 'staging' if isStaging
 
-gulp.task 'zip', ['lint', 'coffee', 'manifest', 'img'], ->
+gulp.task 'zip', ['coffeelint', 'coffee', 'scsslint', 'scss', 'manifest', 'img'], ->
   gulp.src 'app/**/*'
     .pipe zip("timecrowd-#{envName}.zip")
     .pipe(gulp.dest('./build'))
@@ -86,7 +86,7 @@ gulp.task 'env', ->
     .pipe uglify(preserveComments: 'some')
     .pipe gulp.dest('./app/js')
 
-gulp.task 'clean', del.bind(null, ['./app/js/*', './app/manifest.json', './build/*', './app/img/*'])
+gulp.task 'clean', del.bind(null, ['./app/js/*', './app/css/*', './app/manifest.json', './build/*', './app/img/*'])
 
 readVersion = ->
   fs.readFileSync('./src/version', 'UTF-8').replace(/\s/, '')
