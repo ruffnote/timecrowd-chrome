@@ -18,9 +18,9 @@ TimeCrowd.keys =
 
 ```
 # Install
+$ bundle
 $ npm install --global gulp
 $ npm install
-$ gem install scss_lint scss_lint_reporter_checkstyle
 
 # Watch
 $ gulp [watch]
