@@ -95,6 +95,9 @@
   "content_stop": {
     "message": "Stop"
   },
+  "content_loading": {
+    "message": "Loading"
+  },
   "elapsed": {
     "message": "Show elapsed time"
   },

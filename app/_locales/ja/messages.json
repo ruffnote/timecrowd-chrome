@@ -95,6 +95,9 @@
   "content_stop": {
     "message": "ストップ"
   },
+  "content_loading": {
+    "message": "読込中"
+  },
   "elapsed": {
     "message": "経過時間を表示"
   },
