@@ -29,7 +29,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["js/namespace.js", "js/duration.js", "js/annotator.js", "js/env.js", "js/keys.js", "js/api.js", "js/content.js"],
+      "js": ["js/namespace.js", "js/keys.js", "js/env.js", "js/api.js", "js/duration.js", "js/annotator.js", "js/content.js"],
       "css": ["css/content.css"]
     },
     {
@@ -39,7 +39,7 @@
     }
   ],
   "background": {
-    "scripts": ["js/namespace.js", "js/env.js", "js/keys.js", "js/api.js", "js/event.js"],
+    "scripts": ["js/namespace.js", "js/keys.js", "js/env.js", "js/api.js", "js/event.js"],
     "persistent": false
   },
 
