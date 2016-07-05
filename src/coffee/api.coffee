@@ -118,7 +118,7 @@ class Api
   serialize: (params) ->
     params
       .map (p) ->
-        "#{encodeURIComponent(p[0])}=#{p[1]}"
+        "#{encodeURIComponent(p[0])}=#{encodeURIComponent(p[1])}"
       .join '&'
 
 TimeCrowd.api ?= new Api

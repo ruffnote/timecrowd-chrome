@@ -335,6 +335,9 @@ try
       parentURL = annotator.getParentURL(item)
       TimeCrowd.content.start(name, url, parentName, parentURL)
 
+      loading = chrome.i18n.getMessage('content_loading')
+      target.innerHTML = target.innerHTML.replace(/<\/svg>[\s\S]*$/, "</svg> #{loading}")
+
   chrome.runtime.onMessage.addListener (message, sender, sendResponse) ->
     if message.action == 'title'
       patterns = [

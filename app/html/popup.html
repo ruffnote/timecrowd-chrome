@@ -3,11 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/timecrowd-chrome.css">
   </head>
   <body>
     <div id="js_popup" class="popup container initializing">
-      <div class="loading js_loading">{{ 'popup_loading' | localize }}</div>
+      <div class="loading js_loading">
+        <i class="fa fa-refresh fa-spin fa-fw"></i>
+        {{ 'popup_loading' | localize }}
+      </div>
 
       <div class="clearfix">
         <ul class="list-inline list-condensed pull-right">
