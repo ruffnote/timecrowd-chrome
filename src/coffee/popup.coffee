@@ -183,7 +183,10 @@ popup = new Vue
         elapsed: @elapsed
     __restore: ->
       new Promise (resolve, reject) =>
-        keys = ['popup', 'inAuthFlow', 'auth', 'overlay', 'elapsed', 'titleTag', 'reminder']
+        keys = [
+          'popup', 'inAuthFlow', 'auth',
+          'overlay', 'elapsed', 'titleTag', 'reminder'
+        ]
         chrome.storage.local.get keys, (items) =>
           if items.popup
             @userInfo = items.popup.userInfo
