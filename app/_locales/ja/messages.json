@@ -74,6 +74,9 @@
   "popup_today": {
     "message": "今日"
   },
+  "popup_minutes": {
+    "message": "分間"
+  },
   "overlay_left_top": {
     "message": "左上"
   },
@@ -101,7 +104,16 @@
   "elapsed": {
     "message": "経過時間を表示"
   },
+  "reminder": {
+    "message": "止め忘れ通知"
+  },
   "count_on_title": {
     "message": "タイトルでカウント"
+  },
+  "event_remindier_title": {
+    "message": "TimeCrowd リマインダー"
+  },
+  "event_remindier_message": {
+    "message": "\"$1\" を $2分間 続けて作業しています"
   }
 }

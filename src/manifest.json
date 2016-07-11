@@ -20,6 +20,8 @@
     "activeTab",
     "tabs",
     "storage",
+    "alarms",
+    "notifications",
     "http://localhost:3000/",
     "https://timecrowd.net/",
     "http://*/*",
