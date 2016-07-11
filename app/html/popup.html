@@ -275,6 +275,12 @@
             </div>
           </div>
 
+          <h2 class="settings_title">{{ 'reminder' | localize }}</h2>
+          <div class="input-group input-group-sm">
+            <input type="number" v-model="reminder" class="form-control" min="0" step="5">
+            <div class="input-group-addon">{{ 'popup_minutes' | localize }}</div>
+          </div>
+
           <h2 class="settings_title">{{ 'popup_version' | localize }}</h2>
           <p>
             <small class="text-muted">{{ version }}</small>

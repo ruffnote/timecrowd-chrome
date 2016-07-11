@@ -74,6 +74,9 @@
   "popup_today": {
     "message": "Today"
   },
+  "popup_minutes": {
+    "message": "Minutes"
+  },
   "overlay_left_top": {
     "message": "Left top"
   },
@@ -101,7 +104,16 @@
   "elapsed": {
     "message": "Show elapsed time"
   },
+  "reminder": {
+    "message": "Reminder"
+  },
   "count_on_title": {
     "message": "Count on title"
+  },
+  "event_remindier_title": {
+    "message": "TimeCrowd Reminder"
+  },
+  "event_remindier_message": {
+    "message": "\"$1\" is working for $2 minutes."
   }
 }

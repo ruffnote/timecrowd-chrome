@@ -31,3 +31,20 @@ chrome.runtime.onMessage.addListener (message, sender, sendResponse) ->
   if message.action == 'updateIcon'
     updateIcon(sender.tab.id)
 
+chrome.alarms.onAlarm.addListener (alarm) ->
+  chrome.storage.local.get ['popup'], (items) =>
+    entry = items.popup?.userInfo?.time_entry
+    return unless entry
+
+    id = 'reminder'
+
+    minutes = Math.round(entry.duration / 60)
+    task = entry.task.title
+
+    options =
+      type: 'basic'
+      iconUrl: 'icon128.png'
+      title: chrome.i18n.getMessage('event_remindier_title')
+      message: chrome.i18n.getMessage('event_remindier_message', [task, minutes])
+    chrome.notifications.create id, options, (notificationId) ->
+

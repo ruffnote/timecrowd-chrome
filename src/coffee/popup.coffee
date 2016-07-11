@@ -33,6 +33,7 @@ popup = new Vue
       overlay = @overlay
       elapsed = @elapsed
       titleTag = @titleTag
+      reminder = @reminder
       chrome.storage.local.clear()
       TimeCrowd.api.removeAuthToken(@auth)
         .then =>
@@ -40,6 +41,7 @@ popup = new Vue
           @overlay = overlay
           @elapsed = elapsed
           @titleTag = titleTag
+          @reminder = reminder
           @__sync()
         .catch (err) =>
           @__showError(err)
@@ -68,6 +70,10 @@ popup = new Vue
     changeTitleTag: ->
       chrome.storage.local.set
         titleTag: @titleTag
+    changeReminder: ->
+      chrome.storage.local.set
+        reminder: @reminder
+      @__updateAlarm()
     changeTask: (task) ->
       @task = task
       @task.key = task.title unless task.url
@@ -177,7 +183,7 @@ popup = new Vue
         elapsed: @elapsed
     __restore: ->
       new Promise (resolve, reject) =>
-        keys = ['popup', 'inAuthFlow', 'auth', 'overlay', 'elapsed', 'titleTag']
+        keys = ['popup', 'inAuthFlow', 'auth', 'overlay', 'elapsed', 'titleTag', 'reminder']
         chrome.storage.local.get keys, (items) =>
           if items.popup
             @userInfo = items.popup.userInfo
@@ -193,6 +199,7 @@ popup = new Vue
           @overlay = items.overlay ? TimeCrowd.env.overlayDefault
           @elapsed = items.elapsed ? TimeCrowd.env.elapsedDefault
           @titleTag = items.titleTag ? TimeCrowd.env.titleTagDefault
+          @reminder = items.reminder
           resolve()
     __initData: ->
       env = if TimeCrowd.env.production
@@ -208,6 +215,7 @@ popup = new Vue
         overlay: null
         elapsed: null
         titleTag: null
+        reminder: null
         inAuthFlow: false
         messages: null
         task: {}
@@ -248,6 +256,7 @@ popup = new Vue
           else
             @noTeam = true
             throw { message: chrome.i18n.getMessage('popup_no_team_found') }
+          @__updateAlarm()
         .then(@__loadAuth)
         .then(@__fetchWorkingUsers)
         .then(@__stopLoading)
@@ -366,6 +375,25 @@ popup = new Vue
             title: response?.title || tab.title
             url: tab.url
           resolve(res)
+    __updateAlarm: ->
+      name = 'alarm'
+      chrome.alarms.clear name, (wasCleared) =>
+        entry = @userInfo.time_entry
+        return unless entry
+
+        minutes = parseInt(@reminder)
+        return unless minutes > 0
+
+        minutesInMS = minutes * 60 * 1000
+        startedAt = new Date() - (parseInt(entry.duration) * 1000)
+        _when = startedAt + minutesInMS
+        while _when < new Date
+          _when += minutesInMS
+
+        info =
+          when: _when
+          periodInMinutes: minutes
+        chrome.alarms.create name, info
 
 popup.$watch 'overlay', (overlay) ->
   popup.changeOverlay()
@@ -375,6 +403,9 @@ popup.$watch 'elapsed', (elapsed) ->
 
 popup.$watch 'titleTag', (titleTag) ->
   popup.changeTitleTag()
+
+popup.$watch 'reminder', (reminder) ->
+  popup.changeReminder()
 
 # To handle change by mouse (keyup, click or change events don't work well)
 popup.$watch 'task.key', ->
