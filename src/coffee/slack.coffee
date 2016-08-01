@@ -56,7 +56,8 @@ annotator.observe 'ts-message', (element) ->
 
   unless annotator.hasLabel(element)
     a = document.createElement('a')
-    a.className = 'linkStatus ts_icon ts_tip ts_tip_top ts_tip_float ts_tip_delay_60 ts_tip_hidden'
+    tip = 'ts_tip ts_tip_top ts_tip_float ts_tip_delay_60 ts_tip_hidden'
+    a.className = "ts_icon #{tip}"
 
     label = document.createElement('span')
     # label.className = 'showAreatext'

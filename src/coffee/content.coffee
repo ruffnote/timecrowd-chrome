@@ -339,7 +339,8 @@ try
       TimeCrowd.content.start(name, url, parentName, parentURL)
 
       loading = chrome.i18n.getMessage('content_loading')
-      target.innerHTML = target.innerHTML.replace(/<\/svg>[\s\S]*$/, "</svg> #{loading}")
+      html = target.innerHTML.replace(/<\/svg>[\s\S]*$/, "</svg> #{loading}")
+      target.innerHTML = html
 
   chrome.runtime.onMessage.addListener (message, sender, sendResponse) ->
     if message.action == 'title'
