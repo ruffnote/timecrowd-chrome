@@ -54,9 +54,12 @@ class Annotator
     @_set(element, 'itemtype', itemtype)
 
   getItem: (element) ->
+    @getParent(element, 'itemtype', itemtype)
+
+  getParent: (element, attr, itemprop) ->
     item = element
     i = 0
-    while item.getAttribute('itemtype') != itemtype && i < 20
+    while item.getAttribute(attr) != itemprop && i < 20
       item = item.parentNode
       i += 1
     item

@@ -318,11 +318,14 @@ try
   document.addEventListener('page:fetch', initForTurbolinks)
 
   document.addEventListener 'click', (e) ->
-    target = if e.target.getAttribute('itemprop') then e.target else jQuery(e.target).parents("span[itemprop='label']")[0]
-    return unless target.getAttribute('itemprop') == 'label'
+    annotator = TimeCrowd.annotator
+
+    target = if e.target.getAttribute('itemprop')
+      e.target
+    else
+      annotator.getParent(e.target, 'itemprop', 'label')
 
     id = target.dataset.timeCrowdTimeEntryId
-    annotator = TimeCrowd.annotator
     item = annotator.getItem(target)
     return unless item
 
