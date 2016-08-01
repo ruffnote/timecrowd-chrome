@@ -124,5 +124,8 @@
   },
   "event_remindier_message": {
     "message": "\"$1\" is working for $2 minutes."
+  },
+  "event_remindier_edit": {
+    "message": "Edit time entry"
   }
 }

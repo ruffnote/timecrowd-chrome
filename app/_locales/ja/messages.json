@@ -124,5 +124,8 @@
   },
   "event_remindier_message": {
     "message": "\"$1\" を $2分間 続けて作業しています"
+  },
+  "event_remindier_edit": {
+    "message": "作業ログを編集"
   }
 }

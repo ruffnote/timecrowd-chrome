@@ -49,5 +49,15 @@ chrome.alarms.onAlarm.addListener (alarm) ->
       iconUrl: 'icon128.png'
       title: title
       message: message
+      buttons: [
+        {
+          title: chrome.i18n.getMessage('event_remindier_edit')
+        }
+      ]
     chrome.notifications.create id, options, (notificationId) ->
+    chrome.notifications.onButtonClicked.addListener (notificationId, buttonIndex) ->
+      chrome.storage.local.get ['popup'], (items) ->
+        entry = items.popup?.userInfo?.time_entry
+        return unless entry
+        chrome.tabs.create(url: entry.html_url)
 
