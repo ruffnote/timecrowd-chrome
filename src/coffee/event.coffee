@@ -24,6 +24,7 @@ updateIcon = (tabId) ->
           chrome.browserAction.setIcon {
             path: "../img/#{icon}.png", tabId: tabId
           }, ->
+          chrome.alarms.clear 'alarm' unless json.is_working
         .catch (err) ->
           console.error(err)
 
