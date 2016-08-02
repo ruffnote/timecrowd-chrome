@@ -2,17 +2,18 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vendor/bootstrap4/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/timecrowd-chrome.css">
   </head>
   <body>
-    <div id="js_popup" class="popup container initializing">
+    <div id="js_popup" class="popup initializing">
       <div class="loading js_loading">
         <i class="fa fa-refresh fa-spin fa-fw"></i>
         {{ 'popup_loading' | localize }}
       </div>
 
+      <!--
       <div class="clearfix">
         <ul class="list-inline list-condensed pull-right">
           <li>
@@ -31,7 +32,7 @@
             TimeCrowd{{ env }}
           </a>
         </p>
-      </div>
+      </div> -->
 
       <div class="alert alert-danger" v-show="messages">
         <button class="close" type="button" data-dismiss="alert">&times;</button>
@@ -41,11 +42,138 @@
       </div>
 
       <p v-if="noTeam">
-        <a href="#" class="btn btn-default btn-block" v-on="click: openNewTeamUrl">
+        <a href="#" class="btn btn-primary btn-block" v-on="click: openNewTeamUrl">
           {{ 'popup_create_team' | localize }}
         </a>
       </p>
 
+      <div class="new-task" v-show="userInfo">
+        <div class="new-task-form" v-if="!noTeam">
+          <form v-on="submit: start">
+            <div class="new-task-team" v-show="userInfo.teams.length > 1">
+              <select v-on="change: changeTeam" class="form-control js_team_id">
+                <option value="{{ team.id }}" v-repeat="team: userInfo.teams" selected="{{ team.id == teamId ? 'selected' : '' }}">{{ team.name }}</option>
+              </select>
+            </div>
+            <p>
+              <input type="text" v-model="task.key" class="form-control" v-on="focus: select">
+              <small class="text-muted">{{ task.title }}</small>
+            </p>
+            <div>
+              <p><a href="#" v-on="click: start" class="btn btn-block btn-primary" v-attr="disabled: (timeEntryId || (comment && comment.length > 0))">{{ 'popup_start' | localize }}</a></p>
+              <p v-show="timeEntryId"><textarea v-model="comment" class="form-control" placeholder="{{ 'popup_comment' | localize }}"></textarea></p>
+              <p v-show="timeEntryId"><a href="#" v-on="click: stop(timeEntryId)" class="btn btn-block btn-info">
+                <span v-if="!comment || comment.length < 1">{{ 'popup_stop' | localize }}</span>
+                <span v-if="comment.length > 0">{{ 'popup_stop_and_comment' | localize }}</span>
+              </a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+        <div v-show="workingUsers.length" class="card-group">
+          <div v-repeat="workingUser: workingUsers" v-on="click: startTask(workingUser.task)" class="card task">
+            <div class="card-block">
+              <span class="task-team" title="{{ workingUser.task.team.name }}">
+                {{ workingUser.task.team.name }}
+              </span>
+              <span class="task-title" title="{{ workingUser.task.title }}">
+                {{ workingUser.task.title | truncate 140 }}
+              </span>
+              <div class="task-control">
+                <a href="#" v-on="click: stop(workingUser.time_entry.id)" v-if="workingUser.id == userInfo.id" class="btn task-toggle task-stop">
+                  <i class="icon icon-tc-stop"></i>
+                </a>
+                <a href="#" v-on="click: startTask(workingUser.task)" v-if="!userInfo.task || (workingUser.id != userInfo.id && workingUser.task.id != userInfo.task.id)" class="btn task-toggle task-start">
+                  <span class="icon icon-tc-start"></span>
+                </a>
+                <a class="btn" href="#" v-if="workingUser.time_entry.comment.length" class="link_url" data-toggle="popover" data-content="{{ workingUser.time_entry.comment }}" data-html="true">
+                  <i class="icon fi flaticon-speech-bubble"></i>
+                </a>
+                <a class="btn" v-on="click: openUrl(workingUser.task.html_url)" title="{{ workingUser.task.label }}{{ workingUser.task.url ? '\n' + workingUser.task.url : '' }}">
+                  <i class="icon fi flaticon-settings"></i>
+                </a>
+                <a class="btn" v-if="workingUser.task.url" href="#" v-on="click: openUrl(workingUser.task.safe_url)" title="{{ workingUser.task.url }}">
+                  <i class="icon fi flaticon-link"></i>
+                </a>
+              </div>
+              <div class="task-users">
+                <div class="user">
+                  <a href="#" v-on="click: openUrl(workingUser.html_url)">
+                    <img v-attr="src: workingUser.avatar_url" class="user-avatar" title="{{ workingUser.nickname }}">
+                  <a>
+                  <span data-duration="{{ workingUser.time_entry.duration }}" class="js_duration user-time-duration">00:00:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-group" v-show="recentEntries.length">
+          <span class="card-group-title">
+            最近のタスク
+          </span>
+          <div class="card task" v-repeat="recentEntry : recentEntries" v-show="$index < 5 || moreEntries">
+            <div class="card-block">
+              <span class="task-team" title="{{ recentEntry.task.team.name }}">
+                Team Name
+                {{ recentEntry.task.team.name }}
+              </span>
+              <span class="task-title" v-on="click: startTask(recentEntry.task)" title="{{ recentEntry.task.label }}">
+                {{ recentEntry.task.title | truncate 140 }}
+              </span>
+              <div class="task-control">
+                <a href="#" v-on="click: startTask(recentEntry.task)" v-if="!userInfo.task || recentEntry.task.id != userInfo.task.id" class="btn task-toggle task-start">
+                  <span class="icon icon-tc-start"></span>
+                </a>
+                <a class="btn" href="#" v-on="click: openUrl(recentEntry.html_url)">
+                  <i class="icon fi flaticon-edit"></i>
+                </a>
+                <a class="btn" v-if="recentEntry.task.url" href="#" v-on="click: openUrl(recentEntry.task.safe_url)" title="{{ recentEntry.task.url }}">
+                  <i class="icon fi flaticon-link"></i>
+                </a>
+              </div>
+              <div class="task-meta">
+                <div class="task-time">
+                  <span class="task-time-total">
+                    {{ recentEntry.formatted_duration }}
+                  </span>
+                  <span class="task-time-duration">
+                    {{ recentEntry.started_at | strfhourmin }}
+                      -
+                    {{ recentEntry.stopped_at | strfhourmin }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <nav class="nav navbar navbar-default navbar-fixed-bottom">
+        <a href="#" class="pull-left user user-default" v-on="click: openUserUrl">
+          <img v-attr="src: userInfo.avatar_url" class="user-avatar">
+          <span class="user-name">
+            {{ userInfo.nickname }}
+          </span>
+          <span class="user-time-total">
+            {{ activity.today.time }}
+          </span>
+          <span class="user-time-duration">
+            本日
+          </span>
+        </a>
+        <ul class="nav navbar-nav pull-right">
+          <li class="nav-item">
+            <a href="#" v-on="click: toggleSettings" class="nav-link nav-link-icon">
+              <i class="icon fi flaticon-settings"></i>
+              {{ 'popup_settings' | localize }}
+            </a>
+          <li class="nav-item">
+            <a href="#" v-on="click: signOut" class="nav-link">{{ 'popup_sign_out' | localize }}</a>
+          </li>
+        </ul>
+      </nav>
+<!--
       <div v-show="userInfo">
         <div class="panel panel-default panel-form" v-if="!noTeam">
           <div class="panel-body">
@@ -77,7 +205,9 @@
             </a>
           </div>
         </div>
+-->
 
+<!--
         <table v-show="workingUsers.length" class="table table-bordered table-condensed">
           <tr v-repeat="workingUser: workingUsers">
             <td>
@@ -115,7 +245,9 @@
             </td>
           </tr>
         </table>
+-->
 
+<!--
         <table class="table table-bordered table-condensed" v-if="activity">
           <caption>{{ 'popup_activity' | localize }}</caption>
           <tr>
@@ -126,7 +258,9 @@
             <td class="text-right">{{ activity.today.time }}</td>
           </tr>
         </table>
+-->
 
+<!--
         <div class="tab_bottom">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#recent_entries" data-toggle="tab">{{ 'popup_recent_entries' | localize }}</a></li>
@@ -203,6 +337,9 @@
           </div>
         </div>
 
+-->
+
+<!--
         <p class="text-muted">
           <ul class="list-inline pull-right">
             <li>
@@ -220,7 +357,7 @@
               {{ userInfo.nickname }}
             </a>
           </small>
-        </p>
+        </p> -->
 
         <div class="settings" v-show="settings">
           <hr>
@@ -286,7 +423,6 @@
             <small class="text-muted">{{ version }}</small>
           </p>
         </div>
-      </div>
 
       <div v-show="!userInfo">
         <p>
@@ -299,8 +435,8 @@
     <script src="../vendor/underscore-min.js"></script>
     <script src="../vendor/underscore.string.min.js"></script>
     <script src="../vendor/vue.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../vendor/autosize/dist/autosize.min.js"></script>
+    <!-- <script src="../vendor/bootstrap/js/bootstrap.min.js"></script> -->
+    <!-- <script src="../vendor/autosize/dist/autosize.min.js"></script> -->
     <script src="../js/namespace.js"></script>
     <script src="../js/keys.js"></script>
     <script src="../js/env.js"></script>
