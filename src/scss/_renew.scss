@@ -1,0 +1,262 @@
+$cl-grey-1: #fafafa;
+$cl-grey-2: #f5f6f6;
+$cl-grey-4: #cacccc;
+
+$cl-text: #262626;
+$cl-text-2: #717171;
+$cl-text-mute: #9a9a9a;
+$cl-text-r: #fff;
+$cl-bg: #fff;
+
+$y-xs: .5rem;
+$y-sm: 1rem;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  background: #ececec;
+  color: $cl-text;
+  font-family: 'Roboto', sans-serif;
+  font-feature-settings: 'lnum', 'jp04';
+  font-kerning: normal;
+  font-weight: 400;
+  font-size: .875rem;
+  line-height: 1rem;
+  min-width: 360px;
+}
+
+a {
+  color: $cl-text;
+}
+
+.popup {
+  padding-bottom: 4rem;
+}
+
+.navbar-default {
+  background: rgba($cl-bg,.96);
+  border-top: 1px solid rgba($cl-grey-2,.9);
+  padding: 1rem;
+
+  .nav-link {
+    font-size: .75rem;
+    padding: .25rem 0;
+  }
+}
+
+.new-task {
+  padding: .5rem;
+}
+
+.card-group {
+  display: block;
+  padding: .5rem;
+}
+
+.card.task {
+  border: 0;
+  border-radius: .125rem;
+  display: block;
+  margin-bottom: 1px;
+  min-height: 3rem;
+  transition: all .2s ease;
+  padding: 1rem;
+  padding-right: 3rem;
+  position: relative;
+
+  &:hover {
+    background: $cl-grey-1;
+    cursor: pointer;
+  }
+
+  .card-block {
+    padding: 0;
+  }
+
+  .task-team {
+    color: $cl-text-2;
+    display: block;
+    font-size: .75rem;
+  }
+
+  /* .task-team {
+    background: $cl-grey-4;
+    border-radius: 50%;
+    color: $cl-text-r;
+    font-size: .75rem;
+    font-weight: 600;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    position: absolute;
+    top: .75rem;
+    left: .5rem;
+    text-align: center;
+    width: 1.5rem;
+  } */
+
+  .task-title {
+    display: block;
+    line-height: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .task-meta {
+    color: $cl-text-2;
+    padding-top: .5rem;
+  }
+
+  .task-time-total {
+    font-weight: 400;
+  }
+
+  .task-time-duration {
+    font-weight: 100;
+  }
+
+  .task-control {
+    position: absolute;
+    right: .5rem;
+    top: 1rem;
+
+    .btn {
+      background: $cl-bg;
+      border: 1px solid $cl-grey-4;
+      border-radius: 50%;
+      color: $cl-text-2;
+      float: right;
+      font-size: .875rem;
+      height: 2rem;
+      line-height: 2rem;
+      opacity: 1;
+      margin-left: .25rem;
+      padding: 0;
+      position: relative;
+      text-align: center;
+      transition: all .2s ease;
+      width: 2rem;
+      display: none;
+
+      &:hover {
+        border-color: $cl-text;
+        color: $cl-text;
+      }
+    }
+
+    .task-toggle {
+      display: block;
+    }
+  }
+
+  &:hover .task-control {
+    .btn {
+      display: block;
+    }
+  }
+
+  .task-control .task-toggle {
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    color: $cl-text-2;
+    font-size: .875rem;
+    height: 2rem;
+    line-height: 2rem;
+    padding: 0;
+    text-align: center;
+    width: 2rem;
+
+    &:hover {
+      background: $cl-text;
+      color: $cl-text-r;
+    }
+
+    .icon {
+      position: relative;
+    }
+
+    .icon-tc-start {
+      left: 1px;
+    }
+
+    &.task-stop {
+      background: $cl-text-2;
+      color: $cl-text-r;
+
+      &:hover {
+        background: $cl-text;
+        color: $cl-text-r;
+      }
+    }
+  }
+
+  &:hover .task-toggle {
+    background: $cl-text;
+    color: $cl-bg;
+  }
+
+  .task-users {
+    padding-top: .5rem;
+
+    .user {
+      float: left;
+      margin-right: .5rem;
+    }
+  }
+}
+
+.card-group-title {
+  color: $cl-text-mute;
+  display: block;
+  font-size: .75rem;
+  font-weight: 600;
+  margin-bottom: .5rem;
+  padding-left: .5rem;
+}
+
+.user {
+  .user-avatar {
+    border: .125rem solid $cl-grey-4;
+    border-radius: 50%;
+    display: inline-block;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .user-name {
+    display: inline-block;
+    line-height: 1.5rem;
+    padding: 0 .125rem;
+    white-space: nowrap;
+
+    display: none;
+  }
+
+  .user-time-total {
+    display: inline-block;
+    line-height: 1.5rem;
+    padding: 0 .125rem;
+    white-space: nowrap;
+  }
+
+  .user-time-duration {
+    color: $cl-text-2;
+    font-size: .75rem;
+    line-height: 1.5rem;
+  }
+
+  &.user-default {
+
+  }
+}
