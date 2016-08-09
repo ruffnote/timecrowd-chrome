@@ -66,7 +66,7 @@ annotator.observe 'ts-message', (element) ->
 
     tooltip = document.createElement('span')
     tooltip.className = 'ts_tip_tip'
-    tooltip.textContent = 'Start'
+    tooltip.textContent = annotator.getMessage('start')
     a.appendChild(tooltip)
 
     nav.insertBefore(a, action)

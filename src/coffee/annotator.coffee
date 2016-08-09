@@ -30,14 +30,16 @@ class Annotator
   stop: (element) ->
     @_icon(element, 'stop', @iconOnly)
 
+  getMessage: (type) ->
+    chrome.i18n.getMessage("content_#{type}") ? type
+
   _icon: (element, type, iconOnly = false) ->
     style = getComputedStyle(element, null)
     size = Math.round(parseInt(style.fontSize) * 1.2)
     color = style.color
 
     icon = @["_#{type}Icon"](size, color)
-    message = chrome.i18n.getMessage("content_#{type}") ? type
-    if iconOnly then icon else "#{icon} #{message}"
+    if iconOnly then icon else "#{icon} #{@getMessage(type)}"
 
   _annotate: (selector, modifier) ->
     for element in Array::slice.call(document.querySelectorAll(selector))
