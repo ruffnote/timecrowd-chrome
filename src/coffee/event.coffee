@@ -56,9 +56,9 @@ chrome.alarms.onAlarm.addListener (alarm) ->
         }
       ]
     chrome.notifications.create id, options, (notificationId) ->
-    chrome.notifications.onButtonClicked.addListener (notificationId, buttonIndex) ->
-      chrome.storage.local.get ['popup'], (items) ->
-        entry = items.popup?.userInfo?.time_entry
-        return unless entry
-        chrome.tabs.create(url: entry.html_url)
 
+chrome.notifications.onButtonClicked.addListener (notificationId, buttonIndex) ->
+  chrome.storage.local.get ['popup'], (items) ->
+    entry = items.popup?.userInfo?.time_entry
+    return unless entry
+    chrome.tabs.create(url: entry.html_url)
