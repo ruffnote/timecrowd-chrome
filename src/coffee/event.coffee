@@ -42,6 +42,7 @@ chrome.alarms.onAlarm.addListener (alarm) ->
     duration = (new Date() - new Date(entry.started_at * 1000)) / 1000
     minutes = Math.round(duration / 60)
     task = entry.task.title
+    task = "#{task.slice(0, 50)}..." if task.length > 50
     title = chrome.i18n.getMessage('event_remindier_title')
     message = chrome.i18n.getMessage('event_remindier_message', [task, minutes])
 
