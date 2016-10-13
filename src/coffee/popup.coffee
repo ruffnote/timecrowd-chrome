@@ -35,6 +35,8 @@ popup = new Vue
       titleTag = @titleTag
       reminder = @reminder
       chrome.storage.local.clear()
+      chrome.identity.launchWebAuthFlow { url: 'https://accounts.google.com/logout', interactive: false }, ->
+      chrome.identity.launchWebAuthFlow { url: "#{TimeCrowd.env.baseUrl}/sign_out", interactive: false }, ->
       TimeCrowd.api.removeAuthToken(@auth)
         .then =>
           @__initData()
