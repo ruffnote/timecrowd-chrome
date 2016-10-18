@@ -145,7 +145,14 @@
                         </a>
                       </li>
                       <li>
-                        <a href="#" v-on="click: openUrl(recentEntry.html_url)" class="link_url"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="#" v-on="click: openUrl(recentEntry.html_url)" class="link_url">
+                          <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" v-on="click: destroyEntry($event, recentEntry.id)" class="text-danger">
+                          <span class="glyphicon glyphicon-trash"></span>
+                        </a>
                       </li>
                     </ul>
                     <a href="#" v-on="click: openUrl(recentEntry.task.html_url)" title="{{ recentEntry.task.label }}{{ recentEntry.task.url ? '\n' + recentEntry.task.url : '' }}">

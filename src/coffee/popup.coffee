@@ -154,6 +154,18 @@ popup = new Vue
       @openUrl("#{TimeCrowd.env.baseUrl}users/#{@userInfo.id}")
     openUrl: (url) ->
       chrome.tabs.create(url: url)
+    destroyEntry: (e, id) ->
+      e.preventDefault()
+      bootbox.confirm chrome.i18n.getMessage('popup_are_you_sure'), (result) =>
+        @messages = null
+        params = '_method=DELETE'
+        @__startLoading()
+        TimeCrowd.api.request(@auth, '/time_entries/' + id, 'POST', params)
+          .then(@__loadAuth)
+          .then(@__fetchUserInfo)
+          .then(@__stopLoading)
+          .catch (err) =>
+            @__showError(err)
     loadMoreEntries: ->
       @moreEntries = true
     loadMoreTasks: ->
