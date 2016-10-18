@@ -31,11 +31,11 @@ class Api
         &grant_type=authorization_code"
 
       xhr = new XMLHttpRequest
-      xhr.onload = ->
+      xhr.onload = =>
         if xhr.status == 200
-          resolve(JSON.parse(xhr.responseText))
+          resolve(@parse(xhr))
         else
-          reject(JSON.parse(xhr.responseText))
+          reject(@parse(xhr))
       xhr.onerror = reject
 
       xhr.open('POST', "#{@baseUrl}/oauth/token")
@@ -55,11 +55,11 @@ class Api
         &grant_type=refresh_token"
 
       xhr = new XMLHttpRequest
-      xhr.onload = ->
+      xhr.onload = =>
         if xhr.status == 200
-          resolve(JSON.parse(xhr.responseText))
+          resolve(@parse(xhr))
         else
-          reject(JSON.parse(xhr.responseText))
+          reject(@parse(xhr))
       xhr.onerror = reject
 
       xhr.open('POST', "#{@baseUrl}/oauth/token")
@@ -79,11 +79,11 @@ class Api
           promise = if json then @saveAuthToken(json) else Promise.resolve(auth)
           promise.then (auth) =>
             xhr = new XMLHttpRequest
-            xhr.onload = ->
+            xhr.onload = =>
               if xhr.status == 200
-                resolve(JSON.parse(xhr.responseText))
+                resolve(@parse(xhr))
               else
-                reject(JSON.parse(xhr.responseText))
+                reject(@parse(xhr))
             xhr.onerror = reject
 
             xhr.timeout = 15000
@@ -120,6 +120,11 @@ class Api
       .map (p) ->
         "#{encodeURIComponent(p[0])}=#{encodeURIComponent(p[1])}"
       .join '&'
+
+  parse: (xhr) ->
+    text = xhr.responseText
+    return {} unless text
+    JSON.parse(text)
 
 TimeCrowd.api ?= new Api
 
