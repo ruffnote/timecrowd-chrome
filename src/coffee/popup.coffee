@@ -166,6 +166,32 @@ popup = new Vue
           .then(@__stopLoading)
           .catch (err) =>
             @__showError(err)
+    editEntry: (e, entry) ->
+      e.preventDefault()
+      dialog = bootbox.dialog
+        title: chrome.i18n.getMessage('popup_edit_entry')
+        message: """
+          <form>
+            <p><textarea class="form-control" placeholder="#{chrome.i18n.getMessage('popup_comment')}">#{entry.comment}</textarea></p>
+            <p><input type="submit" class="btn btn-block btn-info" value="#{chrome.i18n.getMessage('popup_update')}"></p>
+          </form>
+        """
+      dialog.init =>
+        dialog.find('form').on 'submit', (e) =>
+          e.preventDefault()
+          dialog.modal('hide')
+          comment = $(e.target).find('textarea').val()
+          params = TimeCrowd.api.serialize([
+            ['_method', 'PUT'],
+            ['comment[content]', comment]
+          ])
+          @__startLoading()
+          TimeCrowd.api.request(@auth, '/time_entries/' + entry.id, 'POST', params)
+            .then(@__loadAuth)
+            .then(@__fetchUserInfo)
+            .then(@__stopLoading)
+            .catch (err) =>
+              @__showError(err)
     loadMoreEntries: ->
       @moreEntries = true
     loadMoreTasks: ->

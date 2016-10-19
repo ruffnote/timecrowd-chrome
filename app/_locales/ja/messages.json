@@ -80,6 +80,12 @@
   "popup_are_you_sure": {
     "message": "よろしいですか？"
   },
+  "popup_edit_entry": {
+    "message": "作業ログの編集"
+  },
+  "popup_update": {
+    "message": "更新"
+  },
   "overlay_left_top": {
     "message": "左上"
   },

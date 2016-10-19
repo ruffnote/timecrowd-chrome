@@ -150,6 +150,11 @@
                         </a>
                       </li>
                       <li>
+                        <a href="#" v-on="click: editEntry($event, recentEntry)" class="link_url">
+                          <span class="glyphicon glyphicon-comment"></span>
+                        </a>
+                      </li>
+                      <li>
                         <a href="#" v-on="click: destroyEntry($event, recentEntry.id)" class="text-danger">
                           <span class="glyphicon glyphicon-trash"></span>
                         </a>
