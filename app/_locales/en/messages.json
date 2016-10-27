@@ -77,6 +77,15 @@
   "popup_minutes": {
     "message": "Minutes"
   },
+  "popup_are_you_sure": {
+    "message": "Are you sure?"
+  },
+  "popup_edit_entry": {
+    "message": "Edit entry"
+  },
+  "popup_update": {
+    "message": "Update"
+  },
   "overlay_left_top": {
     "message": "Left top"
   },

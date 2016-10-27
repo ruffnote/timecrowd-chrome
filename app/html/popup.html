@@ -145,7 +145,19 @@
                         </a>
                       </li>
                       <li>
-                        <a href="#" v-on="click: openUrl(recentEntry.html_url)" class="link_url"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="#" v-on="click: openUrl(recentEntry.html_url)" class="link_url">
+                          <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" v-on="click: editEntry($event, recentEntry)" class="link_url">
+                          <span class="glyphicon glyphicon-comment"></span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" v-on="click: destroyEntry($event, recentEntry.id)" class="text-danger">
+                          <span class="glyphicon glyphicon-trash"></span>
+                        </a>
                       </li>
                     </ul>
                     <a href="#" v-on="click: openUrl(recentEntry.task.html_url)" title="{{ recentEntry.task.label }}{{ recentEntry.task.url ? '\n' + recentEntry.task.url : '' }}">
@@ -301,6 +313,7 @@
     <script src="../vendor/vue.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../vendor/autosize/dist/autosize.min.js"></script>
+    <script src="../vendor/bootbox.min.js"></script>
     <script src="../js/namespace.js"></script>
     <script src="../js/keys.js"></script>
     <script src="../js/env.js"></script>
