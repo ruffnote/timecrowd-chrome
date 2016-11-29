@@ -123,6 +123,15 @@
     "message": "TimeCrowd リマインダー"
   },
   "event_remindier_message": {
-    "message": "\"$1\" を $2分間 続けて作業しています"
+    "message": "\"$1\" を $2 続けて作業しています"
+  },
+  "event_remindier_message_minutes": {
+    "message": "$1分間"
+  },
+  "event_remindier_message_hours": {
+    "message": "$1時間$2分"
+  },
+  "event_remindier_edit": {
+    "message": "作業ログを編集"
   }
 }

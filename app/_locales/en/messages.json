@@ -123,6 +123,15 @@
     "message": "TimeCrowd Reminder"
   },
   "event_remindier_message": {
-    "message": "\"$1\" is working for $2 minutes."
+    "message": "\"$1\" is working for $2."
+  },
+  "event_remindier_message_minutes": {
+    "message": "$1 minutes"
+  },
+  "event_remindier_message_hours": {
+    "message": "$1 hours and $2 minutes"
+  },
+  "event_remindier_edit": {
+    "message": "Edit time entry"
   }
 }
