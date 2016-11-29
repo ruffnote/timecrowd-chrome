@@ -28,15 +28,16 @@ popup = new Vue
         .then(@__stopLoading)
         .catch (err) =>
           @__showError(err)
-    signOut: ->
+    signOut: (withIdentity = true) ->
       @messages = null
       overlay = @overlay
       elapsed = @elapsed
       titleTag = @titleTag
       reminder = @reminder
       chrome.storage.local.clear()
-      chrome.identity.launchWebAuthFlow { url: 'https://accounts.google.com/logout', interactive: false }, ->
-      chrome.identity.launchWebAuthFlow { url: "#{TimeCrowd.env.baseUrl}/sign_out", interactive: false }, ->
+      if withIdentity
+        chrome.identity.launchWebAuthFlow { url: 'https://accounts.google.com/logout', interactive: false }, ->
+        chrome.identity.launchWebAuthFlow { url: "#{TimeCrowd.env.baseUrl}/sign_out", interactive: false }, ->
       TimeCrowd.api.removeAuthToken(@auth)
         .then =>
           @__initData()
@@ -356,7 +357,7 @@ popup = new Vue
       @__sync()
     __showError: (err) ->
       if err.error == 'invalid_grant'
-        @signOut().then =>
+        @signOut(false).then =>
           @messages = [chrome.i18n.getMessage('popup_invalid_grant')]
       else if err.message
         @messages = [err.message]
@@ -421,6 +422,8 @@ popup = new Vue
     __updateAlarm: ->
       name = 'alarm'
       chrome.alarms.clear name, (wasCleared) =>
+        return unless @userInfo
+
         entry = @userInfo.time_entry
         return unless entry
 
