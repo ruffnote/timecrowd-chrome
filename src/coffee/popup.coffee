@@ -421,6 +421,8 @@ popup = new Vue
     __updateAlarm: ->
       name = 'alarm'
       chrome.alarms.clear name, (wasCleared) =>
+        return unless @userInfo
+
         entry = @userInfo.time_entry
         return unless entry
 
