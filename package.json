@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "coffee-script": "^1.9.1",
+    "del": "*",
     "gulp": "*",
     "gulp-coffee": "*",
     "gulp-sass": "*",
@@ -8,13 +9,13 @@
     "gulp-cssnano": "*",
     "gulp-scss-lint": "*",
     "gulp-coffeelint": "*",
-    "gulp-plumber": "*",
-    "gulp-uglify": "*",
-    "gulp-zip": "*",
-    "gulp-zip": "*",
-    "gulp-util": "*",
-    "gulp-rename": "*",
+    "gulp-if": "^2.0.1",
     "gulp-json-editor": "*",
-    "del": "*"
+    "gulp-plumber": "*",
+    "gulp-rename": "*",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "*",
+    "gulp-util": "*",
+    "gulp-zip": "*"
   }
 }

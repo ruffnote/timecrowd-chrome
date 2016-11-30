@@ -13,12 +13,15 @@ gutil = require 'gulp-util'
 rename = require 'gulp-rename'
 jeditor = require 'gulp-json-editor'
 fs = require 'fs'
+gulpif = require 'gulp-if'
+sourcemaps = require 'gulp-sourcemaps'
 
 gulp.task 'default', ['watch']
 
 isProduction = gutil.env.production?
 isStaging = gutil.env.staging?
 isDeploy = isProduction || isStaging
+isDevelopment = !isDeploy
 envName = 'development'
 envName = 'production' if isProduction
 envName = 'staging' if isStaging
@@ -30,8 +33,13 @@ gulp.task 'zip', ['coffeelint', 'coffee', 'scsslint', 'scss', 'manifest', 'img']
 
 gulp.task 'coffee', ['env'], ->
   gulp.src './src/coffee/*.coffee'
+    .pipe gulpif(isDevelopment, sourcemaps.init())
     .pipe plumber()
     .pipe coffee()
+    .pipe gulpif(isDevelopment, sourcemaps.write '.',
+      addComment: true
+      sourceRoot: '/src'
+    )
     .pipe if isDeploy then uglify(preserveComments: 'some') else gutil.noop()
     .pipe gulp.dest('./app/js')
 

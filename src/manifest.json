@@ -38,6 +38,11 @@
       "matches": ["https://www.chatwork.com/*"],
       "js": ["js/chatwork.js"],
       "css": ["css/chatwork.css"]
+    },
+    {
+      "matches": ["https://*.slack.com/*"],
+      "js": ["js/slack.js"],
+      "css": ["css/slack.css"]
     }
   ],
   "background": {

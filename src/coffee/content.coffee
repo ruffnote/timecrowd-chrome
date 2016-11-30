@@ -83,7 +83,7 @@ try
 
     _startLabel: (element, json, duration) ->
       if !element.dataset.timeCrowdTimeEntryId
-        element.innerHTML = TimeCrowd.annotator.stopLabel(element)
+        element.innerHTML = TimeCrowd.annotator.stop(element)
         element.dataset.timeCrowdTimeEntryId = json.id
         duration.dataset.duration = json.duration
 
@@ -97,7 +97,7 @@ try
 
     _stopLabel: (element, duration) ->
       if element.dataset.timeCrowdTimeEntryId
-        element.innerHTML = TimeCrowd.annotator.startLabel(element)
+        element.innerHTML = TimeCrowd.annotator.start(element)
         delete element.dataset.timeCrowdTimeEntryId
         delete duration.dataset.duration
         delete duration.dataset.startedAt
@@ -318,11 +318,14 @@ try
   document.addEventListener('page:fetch', initForTurbolinks)
 
   document.addEventListener 'click', (e) ->
-    target = e.target
-    return unless target.getAttribute('itemprop') == 'label'
+    annotator = TimeCrowd.annotator
+
+    target = if e.target.getAttribute('itemprop')
+      e.target
+    else
+      annotator.getParent(e.target, 'itemprop', 'label')
 
     id = target.dataset.timeCrowdTimeEntryId
-    annotator = TimeCrowd.annotator
     item = annotator.getItem(target)
     return unless item
 
@@ -336,7 +339,8 @@ try
       TimeCrowd.content.start(name, url, parentName, parentURL)
 
       loading = chrome.i18n.getMessage('content_loading')
-      target.innerHTML = target.innerHTML.replace(/<\/svg>[\s\S]*$/, "</svg> #{loading}")
+      html = target.innerHTML.replace(/<\/svg>[\s\S]*$/, "</svg> #{loading}")
+      target.innerHTML = html
 
   chrome.runtime.onMessage.addListener (message, sender, sendResponse) ->
     if message.action == 'title'

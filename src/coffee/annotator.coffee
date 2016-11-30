@@ -8,6 +8,9 @@ options =
 itemtype = 'http://schema.org/Action/StartAction'
 
 class Annotator
+  constructor: ->
+    @iconOnly = false
+
   observe: (selector, modifier) ->
     observer = new MutationObserver (mutations) =>
       observer.disconnect()
@@ -17,14 +20,18 @@ class Annotator
     observer.observe(document, options)
     @_annotate(selector, modifier)
 
-  startLabel: (element) ->
-    @_icon(element, 'start')
-
-  stopLabel: (element) ->
-    @_icon(element, 'stop')
-
+  # FIXME: 名前を変えたい(logoIcon とか)
   stopIcon: (element) ->
-    @_icon(element, 'stop', true)
+    @_icon(element, 'stop', @iconOnly)
+
+  start: (element) ->
+    @_icon(element, 'start', @iconOnly)
+
+  stop: (element) ->
+    @_icon(element, 'stop', @iconOnly)
+
+  getMessage: (type) ->
+    chrome.i18n.getMessage("content_#{type}") ? type
 
   _icon: (element, type, iconOnly = false) ->
     style = getComputedStyle(element, null)
@@ -32,8 +39,7 @@ class Annotator
     color = style.color
 
     icon = @["_#{type}Icon"](size, color)
-    message = chrome.i18n.getMessage("content_#{type}") ? type
-    if iconOnly then icon else "#{icon} #{message}"
+    if iconOnly then icon else "#{icon} #{@getMessage(type)}"
 
   _annotate: (selector, modifier) ->
     for element in Array::slice.call(document.querySelectorAll(selector))
@@ -50,9 +56,12 @@ class Annotator
     @_set(element, 'itemtype', itemtype)
 
   getItem: (element) ->
+    @getParent(element, 'itemtype', itemtype)
+
+  getParent: (element, attr, itemprop) ->
     item = element
     i = 0
-    while item.getAttribute('itemtype') != itemtype && i < 20
+    while item.getAttribute(attr) != itemprop && i < 20
       item = item.parentNode
       i += 1
     item
@@ -118,6 +127,7 @@ class Annotator
   _get: (element, value) ->
     element.querySelector("[itemprop=\"#{value}\"]").textContent
 
+  # FIXME: アイコンフォントにしたい
   _startIcon: (size, color = '#999') ->
     d = 'M16,1A15,15,0,1,1,1,16,15,15,0,0,1,16,' +
       '1m0-1A16,16,0,1,0,32,16,16,16,0,0,0,16,0h0Z'
