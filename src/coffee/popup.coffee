@@ -89,6 +89,8 @@ popup = new Vue
     select: (event) ->
       event.target.select()
     start: ->
+      return if @starting
+      @starting = true
       @messages = null
       @__startLoading()
       title = @task.title
@@ -107,12 +109,14 @@ popup = new Vue
         =#{@teamId}"
       TimeCrowd.api.request(@auth, '/time_entries', 'POST', params)
         .then (json) =>
+          @starting = false
           @__setTimeEntryId(json.id, json.id)
           @__sync()
         .then(@__loadAuth)
         .then(@__fetchUserInfo)
         .then(@__stopLoading)
         .catch (err) =>
+          @starting = false
           @__showError(err)
     stop: (id) ->
       @messages = null
@@ -400,14 +404,14 @@ popup = new Vue
         $('.js_loading').fadeIn('fast')
         resolve()
     __stopLoading: ->
-      new Promise (resolve, reject) ->
-        $('.js_loading').fadeOut('fast')
-        resolve()
       Vue.nextTick ->
         evt = document.createEvent('Event')
         evt.initEvent('autosize:update', true, false)
         $('textarea').each ->
           this.dispatchEvent(evt)
+      new Promise (resolve, reject) ->
+        $('.js_loading').fadeOut('fast')
+        resolve()
     __normalizeUrl: (url) ->
       # See `Task::normalize_url`
       ignores = /^(https:\/\/mail\.google\.com|https:\/\/\w+\.cybozu\.com\/k\/)/
