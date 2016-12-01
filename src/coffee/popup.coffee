@@ -404,14 +404,14 @@ popup = new Vue
         $('.js_loading').fadeIn('fast')
         resolve()
     __stopLoading: ->
-      new Promise (resolve, reject) ->
-        $('.js_loading').fadeOut('fast')
-        resolve()
       Vue.nextTick ->
         evt = document.createEvent('Event')
         evt.initEvent('autosize:update', true, false)
         $('textarea').each ->
           this.dispatchEvent(evt)
+      new Promise (resolve, reject) ->
+        $('.js_loading').fadeOut('fast')
+        resolve()
     __normalizeUrl: (url) ->
       # See `Task::normalize_url`
       ignores = /^(https:\/\/mail\.google\.com|https:\/\/\w+\.cybozu\.com\/k\/)/
