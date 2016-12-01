@@ -17,6 +17,11 @@ class Annotator
     observer.observe(document, options)
     @_annotate(selector, modifier)
 
+  withSignedIn: ->
+    new Promise (resolve, reject) ->
+      chrome.storage.local.get 'auth', (items) ->
+        resolve() if items.auth
+
   startLabel: (element) ->
     @_icon(element, 'start')
 

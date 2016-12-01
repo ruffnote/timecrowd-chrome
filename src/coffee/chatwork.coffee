@@ -2,7 +2,7 @@
 
 annotator = TimeCrowd.annotator
 
-annotator.observe '._message', (element) ->
+observe = (element) ->
   nav = element.querySelector '._messageActionNav'
   return unless nav
 
@@ -77,3 +77,10 @@ annotator.observe '._message', (element) ->
     timestamp.appendChild(count)
     timestamp.style.textAlign = 'right'
 
+signedIn = false
+
+annotator.observe '._message', (element) ->
+  return observe(element) if signedIn
+  annotator.withSignedIn().then ->
+    signedIn = true
+    observe(element)
