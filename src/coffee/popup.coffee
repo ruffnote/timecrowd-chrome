@@ -162,6 +162,7 @@ popup = new Vue
     destroyEntry: (e, id) ->
       e.preventDefault()
       bootbox.confirm chrome.i18n.getMessage('popup_are_you_sure'), (result) =>
+        return unless result
         @messages = null
         params = '_method=DELETE'
         @__startLoading()
